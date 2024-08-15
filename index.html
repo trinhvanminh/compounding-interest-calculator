@@ -14,9 +14,19 @@
     </style>
   </head>
   <body>
-    <div class="chart-container">
-      <canvas id="compounding-interest-chart"></canvas>
-    </div>
+    <main>
+      <div>
+        <label for="init-investment">Số vốn ban đầu</label>
+        <input id="init-investment" type="number" />
+      </div>
+      <div>
+        <label for="length-of-time">Thời gian gửi (năm)</label>
+        <input id="length-of-time" type="number" />
+      </div>
+      <div class="chart-container">
+        <canvas id="compounding-interest-chart"></canvas>
+      </div>
+    </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
