@@ -1,12 +1,34 @@
 // TODO: make it a npm package
 
-import { Chart, LineController } from "chart.js";
+import {
+  Chart,
+  LineController,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend,
+  Title,
+} from "chart.js";
+
 import {
   calculateCompoundingInterest,
   color,
   months,
   transparentize,
 } from "./utils";
+
+Chart.register(
+  LineController,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend,
+  Title
+);
 
 type InterestRateByCompoundFrequency = {
   compoundFrequency: number;
@@ -22,7 +44,7 @@ type Dataset = {
 
 // TODO: make 3 this variables dynamic
 const INITIAL_INVESTMENT = 60_000_000;
-const LENGTH_OF_TIME_IN_MONTHS = 36;
+const LENGTH_OF_TIME_IN_MONTHS = 1 * 12;
 const INTEREST_RATE_BY_COMPOUND_FREQUENCIES: InterestRateByCompoundFrequency[] =
   [
     {
@@ -104,7 +126,25 @@ const ctx = document.querySelector<HTMLCanvasElement>(
   "#compounding-interest-chart"
 );
 
-Chart.register(LineController);
+// const initInvestmentElm =
+//   document.querySelector<HTMLInputElement>("#init-investment");
+
+// const lengthOfTimeInYearElm =
+//   document.querySelector<HTMLInputElement>("#length-of-time");
+
+// if (initInvestmentElm) {
+//   initInvestmentElm.addEventListener("change", (e) => {
+//     const element = e.target as HTMLInputElement;
+//     console.log("initInvestment", element.value);
+//   });
+// }
+
+// if (lengthOfTimeInYearElm) {
+//   lengthOfTimeInYearElm.addEventListener("change", (e) => {
+//     const element = e.target as HTMLInputElement;
+//     console.log("lengthOfTimeInYear", element.value);
+//   });
+// }
 
 if (ctx) {
   const chart = new Chart(ctx, {
@@ -117,13 +157,42 @@ if (ctx) {
       responsive: true,
       plugins: {
         legend: {
-          position: "top",
+          position: "bottom",
         },
         title: {
           display: true,
-          text: "Chart.js Line Chart",
+          text: "Lãi kép",
         },
       },
     },
   });
+
+  // const actions = [
+  //   {
+  //     name: "Add Dataset",
+  //     handler(chart: Chart) {
+  //       const data = chart.data;
+  //       const dsColor = color(chart.data.datasets.length);
+  //       const newDataset = {
+  //         label: "Dataset " + (data.datasets.length + 1),
+  //         backgroundColor: transparentize(dsColor, 0.5),
+  //         borderColor: dsColor,
+  //         data: Utils.numbers({
+  //           count: data.labels.length,
+  //           min: -100,
+  //           max: 100,
+  //         }),
+  //       };
+  //       chart.data.datasets.push(newDataset);
+  //       chart.update();
+  //     },
+  //   },
+  //   {
+  //     name: "Remove Dataset",
+  //     handler(chart: Chart) {
+  //       chart.data.datasets.pop();
+  //       chart.update();
+  //     },
+  //   },
+  // ];
 }
