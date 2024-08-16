@@ -34,7 +34,7 @@ const chart = new Chart(ctx, {
     scales: {
       y: {
         ticks: {
-          callback: function (value, index, ticks) {
+          callback: function (value, _index, _ticks) {
             return numeral(value).format("(0a)");
           },
         },

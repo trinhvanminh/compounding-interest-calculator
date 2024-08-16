@@ -1,0 +1,141 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 20px;
+}
+
+main {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1200px;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  overflow-y: auto;
+}
+
+main > div {
+  flex: 3;
+  min-width: 340px;
+}
+
+main > section {
+  flex: 1;
+  height: 100%;
+  min-width: 340px;
+}
+
+.chart-container {
+  width: 100%;
+  min-height: 400px;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.flex-center > div {
+  flex: 1;
+  margin: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#load-sample-data {
+  display: inline-flex;
+  margin-right: 8px;
+  padding: 7.5px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+#add-dataset-container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+}
+
+#interest-rate-list {
+  margin-top: 20px;
+  max-height: calc(100% - 282px);
+  overflow-y: auto;
+}
+
+.interest-rate-item {
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+}
+
+.interest-rate-item button {
+  background-color: #dc3545;
+  margin: 0;
+}
+
+.interest-rate-item button:hover {
+  background-color: #c82333;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 0;
+  }
+
+  #interest-rate-list {
+    max-height: none;
+  }
+}
