@@ -1,32 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <title>Vite + TS</title>
-    <style>
-      .chart-container {
-        width: 80vw;
-      }
-    </style>
-  </head>
-  <body>
-    <main>
-      <div>
-        <label for="init-investment">Số vốn ban đầu</label>
-        <input id="init-investment" type="number" />
-      </div>
-      <div>
-        <label for="length-of-time">Thời gian gửi (năm)</label>
-        <input id="length-of-time" type="number" />
-      </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <title>Vite + TS</title>
+  <style>
+    .chart-container {
+      width: 80vw;
+    }
+
+    .flex-center {
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div>
+      <label for="init-investment">Số vốn ban đầu (ngàn đồng)</label>
+      <input id="init-investment" type="number" min="0" />
+    </div>
+    <div>
+      <label for="length-of-time">Thời gian gửi (năm)</label>
+      <input id="length-of-time" type="number" min="0" max="100" />
+    </div>
+    <div class="flex-center">
       <div class="chart-container">
         <canvas id="compounding-interest-chart"></canvas>
+        <button id="add-dataset">Thêm dữ liệu</button>
+        <button id="remove-dataset">Xoá dữ liệu</button>
+        <button id="load-sample-data">Tải lãi suất OCB</button>
       </div>
-    </main>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+    </div>
+  </main>
+  <script type="module" src="/src/index.ts"></script>
+</body>
+
 </html>
