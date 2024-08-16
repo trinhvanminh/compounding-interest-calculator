@@ -16,6 +16,7 @@
     .flex-center {
       display: flex;
       justify-content: center;
+      flex-direction: column;
     }
   </style>
 </head>
@@ -33,9 +34,21 @@
     <div class="flex-center">
       <div class="chart-container">
         <canvas id="compounding-interest-chart"></canvas>
-        <button id="add-dataset">Thêm dữ liệu</button>
-        <button id="remove-dataset">Xoá dữ liệu</button>
+      </div>
+
+      <div>
         <button id="load-sample-data">Tải lãi suất OCB</button>
+        <button id="remove-datasets">Xoá tất cả lãi suất</button>
+
+        <div id="add-dataset-container">
+          <label for="compound-frequency">Kỳ hạn (tháng)</label>
+          <input id="compound-frequency" type="number" min="0" max="36" />
+          <label for="interest-rate">Lãi suất (%)</label>
+          <input id="interest-rate" type="number" min="0" max="100" />
+          <button id="add-dataset-button">Thêm</button>
+        </div>
+
+        <div id="interest-rate-list"></div>
       </div>
     </div>
   </main>
