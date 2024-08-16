@@ -10,6 +10,7 @@ import {
   Title,
 } from "chart.js";
 
+import numeral from "numeral";
 import { months } from "./utils";
 
 Chart.register(LineController, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title);
@@ -29,46 +30,34 @@ const chart = new Chart(ctx, {
   },
   options: {
     responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        ticks: {
+          callback: function (value, index, ticks) {
+            return numeral(value).format("(0a)");
+          },
+        },
+      },
+    },
     plugins: {
       legend: {
         position: "bottom",
+        labels: {
+          font: {
+            size: 12,
+          },
+        },
       },
       title: {
         display: true,
-        text: "Lãi kép",
+        text: "LÃI KÉP",
+        font: {
+          size: 24,
+        },
       },
     },
   },
 });
 
 export default chart;
-
-// const actions = [
-//   {
-//     name: "Add Dataset",
-//     handler(chart: Chart) {
-//       const data = chart.data;
-//       const dsColor = color(chart.data.datasets.length);
-//       const newDataset = {
-//         label: "Dataset " + (data.datasets.length + 1),
-//         backgroundColor: transparentize(dsColor, 0.5),
-//         borderColor: dsColor,
-//         data: Utils.numbers({
-//           count: data.labels.length,
-//           min: -100,
-//           max: 100,
-//         }),
-//       };
-//       chart.data.datasets.push(newDataset);
-//       chart.update();
-//     },
-//   },
-//   {
-//     name: "Remove Dataset",
-//     handler(chart: Chart) {
-//       chart.data.datasets.pop();
-//       chart.update();
-//     },
-//   },
-// ];
-// }
