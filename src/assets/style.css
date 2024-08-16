@@ -106,12 +106,14 @@ button:hover {
 
 #interest-rate-list {
   margin-top: 20px;
-  max-height: calc(100% - 282px);
+  max-height: calc(100% - 300px);
   overflow-y: auto;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .interest-rate-item {
-  padding: 4px 8px;
+  padding: 4px 8px 4px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -124,10 +126,15 @@ button:hover {
 .interest-rate-item button {
   background-color: #dc3545;
   margin: 0;
+  padding: 4px 12px;
 }
 
 .interest-rate-item button:hover {
   background-color: #c82333;
+}
+
+#legend-container {
+  overflow-y: auto;
 }
 
 @media (max-width: 768px) {
