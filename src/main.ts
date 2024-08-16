@@ -31,6 +31,10 @@ const ctx = document.getElementById(
   "compounding-interest-chart"
 ) as HTMLCanvasElement;
 
+const fullSizeCtx = document.getElementById(
+  "full-size-chart"
+) as HTMLCanvasElement;
+
 const getOrCreateLegendList = (_chart: Chart, id: string) => {
   const legendContainer = document.getElementById(id) as HTMLDivElement;
   let listContainer = legendContainer.querySelector("ul");
@@ -151,6 +155,53 @@ const chart = new Chart(ctx, {
         //   },
         // },
         display: false,
+      },
+      htmlLegend: {
+        containerID: "legend-container",
+      },
+      title: {
+        display: true,
+        text: "LÃI KÉP",
+        font: {
+          size: 24,
+        },
+      },
+    },
+  },
+} as ChartConfiguration);
+
+export const fullSizeChart = new Chart(fullSizeCtx, {
+  type: "line",
+  data: {
+    labels: months(),
+    datasets: [
+      {
+        label: "Kỳ hạn n (i%)",
+        data: [0],
+      },
+    ],
+  },
+  plugins: [htmlLegendPlugin],
+  options: {
+    maintainAspectRatio: true,
+    aspectRatio: 2 / 1,
+    scales: {
+      y: {
+        ticks: {
+          callback: function (value, _index, _ticks) {
+            return numeral(value).format("(0a)");
+          },
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        position: "bottom",
+        labels: {
+          font: {
+            size: 12,
+          },
+        },
       },
       htmlLegend: {
         containerID: "legend-container",

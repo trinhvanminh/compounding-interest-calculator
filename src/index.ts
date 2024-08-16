@@ -1,5 +1,5 @@
 import { ChartDataset } from "chart.js";
-import chart from "./main";
+import chart, { fullSizeChart } from "./main";
 import {
   calculateCompoundingInterest,
   color,
@@ -128,7 +128,14 @@ addDatasetBtn.addEventListener("click", () => {
 });
 
 downloadButton.addEventListener("click", () => {
-  const base64Image = chart.toBase64Image("image/png", 1);
+  const datasets = getDatasets();
+  console.log("datasets", datasets);
+  fullSizeChart.data.datasets = datasets;
+  fullSizeChart.data.labels = months(lengthOfTimeInMonths);
+
+  fullSizeChart.update();
+
+  const base64Image = fullSizeChart.toBase64Image("image/png", 1);
   const link = document.createElement("a");
   link.href = base64Image;
   link.download = "chart.png";
@@ -223,9 +230,15 @@ function renderInterestRateList() {
 
 function updateChart() {
   const datasets = getDatasets();
+  const labels = months(lengthOfTimeInMonths);
+
   chart.data.datasets = datasets;
-  chart.data.labels = months(lengthOfTimeInMonths);
+  chart.data.labels = labels;
   chart.update();
+
+  fullSizeChart.data.datasets = datasets;
+  fullSizeChart.data.labels = labels;
+  fullSizeChart.update();
 }
 
 window.addEventListener("load", () => {
