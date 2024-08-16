@@ -9,14 +9,138 @@
   <meta name="keywords" content="" />
   <title>Vite + TS</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      height: 100vh;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    main {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      height: 100%;
+      overflow-y: overlay;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    main>div {
+      flex: 3;
+      min-width: 340px;
+    }
+
+    main>section {
+      flex: 1;
+      height: 100%;
+      min-width: 340px;
+    }
+
     .chart-container {
-      width: 80vw;
+      width: 100%;
+      min-height: 400px;
+      margin-bottom: 12px;
+      position: relative;
     }
 
     .flex-center {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .flex-center>div {
+      flex: 1;
+      margin: 10px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    #load-sample-data {
+      margin-right: 8px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #add-dataset-container {
+      display: flex;
       flex-direction: column;
+      margin: 20px 0;
+    }
+
+    #interest-rate-list {
+      margin-top: 20px;
+      max-height: calc(100% - 252px);
+      overflow-y: auto;
+    }
+
+    .interest-rate-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      background-color: #f9f9f9;
+    }
+
+    .interest-rate-item button {
+      background-color: #dc3545;
+      margin: 0;
+    }
+
+    .interest-rate-item button:hover {
+      background-color: #c82333;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 0;
+      }
+
+      #interest-rate-list {
+        max-height: none;
+      }
     }
   </style>
 </head>
@@ -24,18 +148,23 @@
 <body>
   <main>
     <div>
-      <label for="init-investment">Số vốn ban đầu (ngàn đồng)</label>
-      <input id="init-investment" type="number" min="0" />
-    </div>
-    <div>
-      <label for="length-of-time">Thời gian gửi (năm)</label>
-      <input id="length-of-time" type="number" min="0" max="100" />
-    </div>
-    <div class="flex-center">
-      <div class="chart-container">
-        <canvas id="compounding-interest-chart"></canvas>
-      </div>
+      <section>
+        <div>
+          <label for="init-investment">Số vốn ban đầu (đồng)</label>
+          <input id="init-investment" type="number" value="100000.56" />
+        </div>
+        <div>
+          <label for="length-of-time">Thời gian gửi (năm)</label>
+          <input id="length-of-time" type="number" min="0" max="100" value="1" />
+        </div>
+      </section>
 
+      <section class="chart-container">
+        <canvas id="compounding-interest-chart"></canvas>
+      </section>
+
+    </div>
+    <section>
       <div>
         <button id="load-sample-data">Tải lãi suất OCB</button>
         <button id="remove-datasets">Xoá tất cả lãi suất</button>
@@ -48,9 +177,11 @@
           <button id="add-dataset-button">Thêm</button>
         </div>
 
-        <div id="interest-rate-list"></div>
       </div>
-    </div>
+
+      <div id="interest-rate-list"></div>
+    </section>
+
   </main>
   <script type="module" src="/src/index.ts"></script>
 </body>
