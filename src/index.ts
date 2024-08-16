@@ -133,7 +133,6 @@ addDatasetBtn.addEventListener("click", () => {
 
 downloadChartButton.addEventListener("click", () => {
   const datasets = getDatasets();
-  console.log("datasets", datasets);
   fullSizeChart.data.datasets = datasets;
   fullSizeChart.data.labels = months(lengthOfTimeInMonths);
 
