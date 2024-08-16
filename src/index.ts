@@ -131,7 +131,7 @@ function getDatasets() {
 }
 
 function sortInterestRates() {
-  interestRates.sort((a, b) => a.compoundFrequency - b.compoundFrequency);
+  interestRates.sort((a, b) => a.compoundFrequency - b.compoundFrequency || a.interestRate - b.interestRate);
 }
 
 function renderInterestRateList() {
@@ -141,8 +141,8 @@ function renderInterestRateList() {
     const listItem = document.createElement("div");
     listItem.className = "interest-rate-item";
     listItem.innerHTML = `
-      <span>Kỳ hạn: ${item.compoundFrequency} tháng, Lãi suất: ${(item.interestRate * 100).toFixed(2)}%</span>
-      <button data-index="${index}">Xoá</button>
+      <span>Kỳ hạn: ${item.compoundFrequency} tháng (${(item.interestRate * 100).toFixed(2)}%)</span>
+      <button data-index="${index}"><i class="fas fa-trash-alt"></i></button>
     `;
     interestRateList.appendChild(listItem);
   });
