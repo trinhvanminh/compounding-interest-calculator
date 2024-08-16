@@ -181,7 +181,6 @@ export const fullSizeChart = new Chart(fullSizeCtx, {
       },
     ],
   },
-  plugins: [htmlLegendPlugin],
   options: {
     maintainAspectRatio: true,
     aspectRatio: 2 / 1,
@@ -202,9 +201,6 @@ export const fullSizeChart = new Chart(fullSizeCtx, {
             size: 12,
           },
         },
-      },
-      htmlLegend: {
-        containerID: "legend-container",
       },
       title: {
         display: true,
