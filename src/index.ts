@@ -35,6 +35,8 @@ const interestRateList = document.getElementById("interest-rate-list") as HTMLDi
 const compoundFrequencyInput = document.getElementById("compound-frequency") as HTMLInputElement;
 const interestRateInput = document.getElementById("interest-rate") as HTMLInputElement;
 
+const downloadButton = document.getElementById("download-chart") as HTMLButtonElement;
+
 let initialInvestment: number = parseFloat(initInvestmentElm.value);
 let lengthOfTimeInMonths: number = parseFloat(lengthOfTimeInYearElm.value) * 12;
 let interestRates: InterestRate[] = OCB_INTEREST_RATES;
@@ -92,6 +94,14 @@ addDatasetBtn.addEventListener("click", () => {
   }
 
   updateChart();
+});
+
+downloadButton.addEventListener("click", () => {
+  const base64Image = chart.toBase64Image("image/png", 1);
+  const link = document.createElement("a");
+  link.href = base64Image;
+  link.download = "chart.png";
+  link.click();
 });
 
 removeDatasetsBtn.addEventListener("click", () => {
