@@ -1,6 +1,10 @@
 import { ChartDataset } from "chart.js";
 import chart from "./main";
 import { calculateCompoundingInterest, color, debounce, months, transparentize } from "./utils";
+import numeral from "numeral";
+import "numeral/locales/vi";
+
+numeral.locale("vi");
 
 type InterestRate = {
   compoundFrequency: number;
@@ -20,11 +24,6 @@ const OCB_INTEREST_RATES: InterestRate[] = [
   { compoundFrequency: 36, interestRate: 0.058 },
 ];
 
-// TODO: make these variables dynamic
-let initialInvestment: number;
-let lengthOfTimeInMonths: number;
-let interestRates: InterestRate[] = OCB_INTEREST_RATES;
-
 const initInvestmentElm = document.getElementById("init-investment") as HTMLInputElement;
 const lengthOfTimeInYearElm = document.getElementById("length-of-time") as HTMLInputElement;
 const addDatasetBtn = document.getElementById("add-dataset-button") as HTMLButtonElement;
@@ -36,11 +35,23 @@ const interestRateList = document.getElementById("interest-rate-list") as HTMLDi
 const compoundFrequencyInput = document.getElementById("compound-frequency") as HTMLInputElement;
 const interestRateInput = document.getElementById("interest-rate") as HTMLInputElement;
 
+let initialInvestment: number = parseFloat(initInvestmentElm.value);
+let lengthOfTimeInMonths: number = parseFloat(lengthOfTimeInYearElm.value) * 12;
+let interestRates: InterestRate[] = OCB_INTEREST_RATES;
+
 initInvestmentElm.addEventListener(
   "input",
   debounce(function (e) {
     const element = e.target as HTMLInputElement;
-    initialInvestment = parseFloat(element.value);
+    let value = parseFloat(element.value);
+
+    if (value < 0) {
+      alert("Vui lòng nhập số tiền lớn hơn 0");
+      element.value = "0";
+      value = 0;
+    }
+
+    initialInvestment = value;
     updateChart();
   }, 300)
 );
@@ -49,7 +60,15 @@ lengthOfTimeInYearElm.addEventListener(
   "input",
   debounce(function (e) {
     const element = e.target as HTMLInputElement;
-    lengthOfTimeInMonths = parseFloat(element.value) * 12;
+    let value = parseFloat(element.value);
+
+    if (value < 0) {
+      alert("Vui lòng nhập thời gian gửi lớn hơn 0");
+      element.value = "0";
+      value = 0;
+    }
+
+    lengthOfTimeInMonths = value * 12;
     updateChart();
   }, 300)
 );
@@ -58,7 +77,9 @@ addDatasetBtn.addEventListener("click", () => {
   const compoundFrequency = parseInt(compoundFrequencyInput.value, 10);
   const interestRate = parseFloat(interestRateInput.value) / 100;
 
-  if (!isNaN(compoundFrequency) && !isNaN(interestRate)) {
+  const isValidInput = !isNaN(compoundFrequency) && !isNaN(interestRate) && compoundFrequency > 0 && interestRate > 0;
+
+  if (isValidInput) {
     interestRates.push({ compoundFrequency, interestRate });
     sortInterestRates();
     renderInterestRateList();
@@ -145,5 +166,7 @@ function updateChart() {
   chart.update();
 }
 
-renderInterestRateList();
-updateChart();
+window.addEventListener("load", () => {
+  renderInterestRateList();
+  updateChart();
+});
