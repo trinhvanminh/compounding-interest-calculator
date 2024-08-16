@@ -60,8 +60,12 @@ const interestRateInput = document.getElementById(
   "interest-rate"
 ) as HTMLInputElement;
 
-const downloadButton = document.getElementById(
+const downloadChartButton = document.getElementById(
   "download-chart"
+) as HTMLButtonElement;
+
+const downloadDataButton = document.getElementById(
+  "download-data"
 ) as HTMLButtonElement;
 
 let initialInvestment: number = parseFloat(initInvestmentElm.value);
@@ -127,7 +131,7 @@ addDatasetBtn.addEventListener("click", () => {
   updateChart();
 });
 
-downloadButton.addEventListener("click", () => {
+downloadChartButton.addEventListener("click", () => {
   const datasets = getDatasets();
   console.log("datasets", datasets);
   fullSizeChart.data.datasets = datasets;
@@ -139,6 +143,35 @@ downloadButton.addEventListener("click", () => {
   const link = document.createElement("a");
   link.href = base64Image;
   link.download = "chart.png";
+  link.click();
+});
+
+downloadDataButton.addEventListener("click", () => {
+  const data = chart.data.datasets.map((dataset) => {
+    const { label, data } = dataset;
+    const formattedData = data.map((item) => {
+      if (item === null || item === undefined) return 0;
+
+      return (item as number).toFixed(2);
+    });
+    return [label, ...formattedData];
+  });
+
+  const header = ["Kỳ hạn (lãi suất)", ...(chart.data.labels as string[])];
+  const rows = [header, ...data];
+
+  let csvContent =
+    "data:text/csv; charset=utf-8," + rows.map((e) => e.join(",")).join("\n");
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+
+  link.href = encodedUri;
+
+  const init = numeral(initialInvestment).format();
+  const years = numeral(lengthOfTimeInMonths / 12).format("0,0.00");
+
+  link.download = `lai-suat_${init}vnd_${years}nam.csv`;
+
   link.click();
 });
 
