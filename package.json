@@ -9,11 +9,13 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/numeral": "^2.0.5",
     "typescript": "^5.5.3",
     "vite": "^5.4.0"
   },
   "dependencies": {
     "@kurkle/color": "^0.3.2",
-    "chart.js": "^4.4.3"
+    "chart.js": "^4.4.3",
+    "numeral": "^2.0.6"
   }
 }
